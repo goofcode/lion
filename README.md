@@ -20,6 +20,7 @@
     
   
 ## 2. Usage
+`$git clone https://github.com/goofcode/lion`
 ```python
 import lion
 lion.send_basic_text_message('phantom', 'msg_content', 'https://github.com/goofcode')

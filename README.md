@@ -1,5 +1,5 @@
 # lion(라이언)
-###1. Outline, Requirement
+### 1. Outline, Requirement
 * * *
 ##### English
 * `lion` is automated messaging module for kakao plus friend admin. 
@@ -20,14 +20,14 @@
   * `selenium`에 대해서는 [여기](http://www.seleniumhq.org/)를 참조해주세요.
     
   
-###2. Usage
+### 2. Usage
 * * *
 ```python
 import lion
 lion.send_basic_text_message('phantom', 'msg_content', 'https://github.com/goofcode')
 ```
 
-###3. API
+### 3. API
 * `lion.send_basic_text_message(mode, content, link[opt], share[opt])`
     * **send basic text type message to all friends**
     * `mode`: 'chrome' or 'phantom'(headless)

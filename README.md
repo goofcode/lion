@@ -28,6 +28,7 @@ lion.send_basic_text_message('phantom', 'msg_content', 'https://github.com/goofc
 ```
 
 ### 3. API
+* * *
 * `lion.send_basic_text_message(mode, content, link[opt], share[opt])`
     * **send basic text type message to all friends**
     * `mode`: 'chrome' or 'phantom'(headless)

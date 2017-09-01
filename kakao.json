@@ -1,0 +1,19 @@
+{
+  "_comment": "this file specifies url or component locator of kakao web pages, so can be changed depending on the pages",
+
+  "pf_home_url": "https://center-pf.kakao.com/",
+  "basic_message_url": "messages/new/basic",
+  "to_login_page_btn_xpath": "//a[contains(text(),'관리자 로그인')]",
+  "login_email_input_id": "email",
+  "login_pw_input_id": "password",
+  "login_submit_btn_id": "btn_login",
+
+  "message_input_id": "messageWrite",
+  "add_link_radio_xpath": "//input[@id='fieldRadio3Forlink.type']/../label[1]/span[1]",
+  "link_name_id": "btnName",
+  "link_input_id": "linkUpload",
+  "no_share_radio_xpath": "//input[@id='fieldRadio0Forshareable']/../label[1]/span[1]",
+  "next_btn": "//button[contains(text(),'다음')]",
+  "submit_btn": "//button[contains(text(),'등록')]",
+  "confirm_btn": "//button[contains(text(),'확인')]"
+}

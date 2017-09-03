@@ -47,5 +47,3 @@ def send_basic_text_message(content, link=None, share=True, mode='phantom'):
     wait_until_xpath_load(driver, locators['confirm_btn_xpath']).click()
 
     driver.close()
-
-send_basic_text_message(content='Test Message', mode='phantom')

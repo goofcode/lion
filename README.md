@@ -4,7 +4,7 @@
 * `lion` is automated messaging module for kakao plus friend admin. 
 * You SHOULD modify `setting.json` to use this module.
   * `"admin_info"`: set admin email and password
-  * `"pf_center_url"`: set url for plus friend center
+  * `"pf_home_url"`: set url for plus friend center
   * `"chrome_driver_path"`, `"phantom_driver_path"`: set path for drivers for `selenium`.
     * required to have proper driver file(binary or exe ...) 
     * for more information about `selenium`, please check [here](http://www.seleniumhq.org/).

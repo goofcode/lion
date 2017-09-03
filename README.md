@@ -24,13 +24,15 @@
 * * *
 ```python
 import lion
-lion.send_basic_text_message('phantom', 'msg_content', 'https://github.com/goofcode')
+lion.message.send_basic_text_message('phantom', 'msg_content', 'https://github.com/goofcode')
 ```
 
 ###3. API
-* `lion.send_basic_text_message(mode, content, link[opt], share[opt])`
+* `lion.message.send_basic_text_message(content, link=None, share=False, mode='phantom')`
     * **send basic text type message to all friends**
     * `mode`: 'chrome' or 'phantom'(headless)
     * `content`: message content to be sent
     * `link`: link to be sent w/ message if none, only content will be send
     * `share`: whether enable 'share to friend'
+
+*

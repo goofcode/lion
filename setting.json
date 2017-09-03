@@ -3,7 +3,7 @@
     "email": "admain@email.com",
     "pw": "admin_password"
   },
-  "pf_center_url": "https://center-pf.kakao.com/_XXXXXXX/",
+  "pf_home_url": "https://center-pf.kakao.com/_XXXXXXX/",
   "chrome_driver_path": "/path/to/chrome/driver",
   "phantom_driver_path": "/path/to/phantom/driver"
 }

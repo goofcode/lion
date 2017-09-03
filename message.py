@@ -2,63 +2,50 @@
 author: Mookeun Ji, goofcode@gmail.com
 
 # Functions defined here may raise some exceptions from driver in case of
-    1. unknown change in kakao web
-    2. unusual notice
+
+    1. setting or locator fault
+    2. loss of internet connection
+    3. ==unknown change in kakao web==
+    4. ==unusual notice==
 
   So, if there is any issue,
    going through whole messaging process manually on actual browser at least once and
    modifying this set of codes appropriately are recommended for further use
 """
 
-import util
+from util import *
 
-
-def send_basic_text_message(mode, content, link=None, share=True,):
+def send_basic_text_message(content, link=None, share=True, mode='phantom'):
     """
     send basic text type message to all friends
 
-    :param mode: 'chrome' or 'phantom'(headless)
     :param content: message content to be sent
     :param link: link to be sent w/ message if none, only content will be send
     :param share: whether enable 'share to friend'
-    """
-    driver, setting, kakao = _start_and_login(mode)
+    :param mode: 'chrome' or 'phantom'(headless)
 
-    driver.get(util.url_join(setting['pf_center_url'], kakao['basic_message_url']))
+    """
+
+    driver = get_driver(mode)
+    settings, locators = get_settings_and_locators()
+
+    login_pf_center(driver)
+    driver.get(url_join(settings['pf_home_url'], locators['basic_message_url']))
 
     # fill inputs for new message
-    driver.find_element_by_id(kakao['message_input_id']).send_keys(content)
+    wait_until_id_load(driver, locators['message_input_id']).send_keys(content)
     if link is not None:
-        driver.find_element_by_xpath(kakao['add_link_radio_xpath']).click()
-        driver.find_element_by_id(kakao['link_name_id']).send_keys("바로가기")
-        driver.find_element_by_id(kakao['link_input_id']).clear()
-        driver.find_element_by_id(kakao['link_input_id']).send_keys(link)
+        wait_until_xpath_load(driver, locators['add_link_radio_xpath']).click()
+        wait_until_id_load(driver, locators['link_name_id']).send_keys("바로가기")
+        wait_until_id_load(driver, locators['link_input_id']).clear()
+        wait_until_id_load(driver, locators['link_input_id']).send_keys(link)
     if share is False:
-        driver.find_element_by_xpath(kakao['no_share_radio_xpath']).click()
+        wait_until_xpath_load(driver, locators['no_share_radio_xpath']).click()
 
-    driver.find_element_by_xpath(kakao['next_btn']).click()
-    driver.find_element_by_xpath(kakao['submit_btn']).click()
-    driver.find_element_by_xpath(kakao['confirm_btn']).click()
+    wait_until_xpath_load(driver, locators['next_btn_xpath']).click()
+    wait_until_xpath_load(driver, locators['submit_btn_xpath']).click()
+    wait_until_xpath_load(driver, locators['confirm_btn_xpath']).click()
 
-    import time
-    time.sleep(10)
+    driver.close()
 
-
-def _start_and_login(mode):
-
-    # get new driver and data
-    driver = util.get_driver(mode)
-    setting = util.get_setting()
-    kakao = util.get_kakao_data()
-
-    # login to pf center
-    driver.get(kakao['pf_home_url'])
-    driver.find_element_by_xpath(kakao['to_login_page_btn_xpath']).click()
-    driver.find_element_by_id(kakao['login_email_input_id']).send_keys(setting['admin_info']['email'])
-    driver.find_element_by_id(kakao['login_pw_input_id']).send_keys(setting['admin_info']['pw'])
-    driver.find_element_by_id(kakao['login_submit_btn_id']).click()
-
-    return driver, setting, kakao
-
-if __name__ == '__main__':
-    send_basic_text_message( mode='chrome', content='Test Message', link='https://github.com/goofcode')
+send_basic_text_message(content='Test Message', mode='phantom')

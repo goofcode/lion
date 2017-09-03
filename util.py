@@ -12,7 +12,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from exception import NoSuchDriverException
 
-DEV = True
+DEV = False
 
 
 def url_join(main_url, sub_url):

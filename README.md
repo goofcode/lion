@@ -1,4 +1,11 @@
 # lion(라이언)
+
+* [1. Outline, Requirement](#1-outline-requirement)
+  * [English](#english)
+  * [한글](#한글)
+* [2. Usage](#2-usage)
+* [3. API](#3-api)
+
 ## 1. Outline, Requirement
 ##### English
 * `lion` is automated messaging module for kakao plus friend admin. 

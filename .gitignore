@@ -1,2 +1,4 @@
 dev_setting.json
 *.log
+__pycache__
+.idea

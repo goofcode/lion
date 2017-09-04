@@ -14,7 +14,8 @@ def get_friend_number(mode='phantom'):
     util.to_pf_home(driver)
 
     friend_element = util.wait_until_xpath_load(driver, util.get_locators()['friend_number_xpath'])
-    time.sleep(2)       # friend number is loaded dynamically
+    # friend number is loaded dynamically
+    time.sleep(2)
     friend_number = int(re.findall(r'\d+', friend_element.text)[0])
     driver.close()
     return friend_number
@@ -29,6 +30,7 @@ def get_left_free_message_number(mode='phantom'):
     util.to_pf_home(driver)
 
     free_message_element = util.wait_until_xpath_load(driver, util.get_locators()['free_message_xpath'])
+    # left_free_message_number is loaded dynamically
     time.sleep(2)
     free_message = int(free_message_element.text.replace(',', ''))
     driver.close()

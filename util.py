@@ -35,15 +35,18 @@ def get_settings():
     else:
         with open('setting.json', 'r') as settings_json:
             return json.load(settings_json)
+
 def get_locators():
     with open('locator.json', 'r', encoding='utf-8') as locators_json:
         return json.load(locators_json)
+
 def get_settings_and_locators():
     """
     get setting and locators specified in setting.json
     :return: 2 dictionaries that contains setting and locators
     """
     return get_settings(), get_locators()
+
 
 
 # utils for crawling
@@ -68,6 +71,7 @@ def get_driver(mode='phantom'):
         raise NoSuchDriverException('mode should be either "chrome" or "phantom"(headless)')
 
     return driver
+
 def wait_until_xpath_load(driver, element_xpath, timeout=5):
     """
     :param driver: selenium driver trying to load page
@@ -75,8 +79,8 @@ def wait_until_xpath_load(driver, element_xpath, timeout=5):
     :param timeout: maximum time to wait. after this time elapsed, TimeoutException will be raised.
     :return: web element object waiting for
     """
-    locator = (By.XPATH, element_xpath)
-    return _get_element_after_loaded(driver, timeout, locator)
+    return _get_element_after_loaded(driver, timeout, (By.XPATH, element_xpath))
+
 def wait_until_id_load(driver, element_id, timeout=5):
     """
     :param driver: selenium driver trying to load page
@@ -84,10 +88,11 @@ def wait_until_id_load(driver, element_id, timeout=5):
     :param timeout: maximum time to wait. after this time elapsed, TimeoutException will be raised.
     :return: web element object waiting for
     """
-    locator = (By.ID, element_id)
-    return _get_element_after_loaded(driver, timeout, locator)
+    return _get_element_after_loaded(driver, timeout, (By.ID, element_id))
+
 def _get_element_after_loaded(driver, timeout, locator):
     return WebDriverWait(driver, timeout).until(ec.presence_of_element_located(locator))
+
 def login_pf_center(driver):
     settings, locators = get_settings_and_locators()
     to_pf_center(driver)
@@ -96,10 +101,12 @@ def login_pf_center(driver):
     driver.find_element_by_id(locators['login_pw_input_id']).send_keys(settings['admin_info']['pw'])
     driver.find_element_by_id(locators['login_submit_btn_id']).click()
     return driver
+
 def to_pf_center(driver):
     # 'center' refers to the main page of plus friend center
     driver.get(get_locators()['pf_center_url'])
     return driver
+
 def to_pf_home(driver):
     # 'home' refers to the home page of plus friend specified in setting.json
     driver.get(get_settings()['pf_home_url'])

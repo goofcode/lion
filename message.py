@@ -34,11 +34,13 @@ def send_basic_text_message(content, link=None, share=True, mode='phantom'):
 
     # fill inputs for new message
     wait_until_id_load(driver, locators['message_input_id']).send_keys(content)
+
     if link is not None:
         wait_until_xpath_load(driver, locators['add_link_radio_xpath']).click()
         wait_until_id_load(driver, locators['link_name_id']).send_keys("바로가기")
         wait_until_id_load(driver, locators['link_input_id']).clear()
         wait_until_id_load(driver, locators['link_input_id']).send_keys(link)
+
     if share is False:
         wait_until_xpath_load(driver, locators['no_share_radio_xpath']).click()
 

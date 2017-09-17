@@ -97,9 +97,9 @@ def login_pf_center(driver):
     settings, locators = get_settings_and_locators()
     to_pf_center(driver)
     wait_until_load(driver, 'xpath', locators['to_login_page_btn_xpath']).click()
-    driver.find_element_by_id(locators['login_email_input_id']).send_keys(settings['admin_info']['email'])
-    driver.find_element_by_id(locators['login_pw_input_id']).send_keys(settings['admin_info']['pw'])
-    driver.find_element_by_id(locators['login_submit_btn_id']).click()
+    wait_until_load(driver, 'id', locators['login_email_input_id']).send_keys(settings['admin_info']['email'])
+    wait_until_load(driver, 'id', locators['login_pw_input_id']).send_keys(settings['admin_info']['pw'])
+    wait_until_load(driver, 'id', locators['login_submit_btn_id']).click()
     return driver
 
 def to_pf_center(driver):

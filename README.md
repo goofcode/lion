@@ -44,7 +44,7 @@ print(info.get_left_free_message_number())
 
 ## 3. API
 * common parameter
-    * `mode`: mode which crawling process runs on, 'chrome' or 'phantom'(headless)
+    * `mode`: mode which crawling process runs on, 'chrome' or 'phantom'(headless, default)
     
 * `message.send_basic_text_message(content, link=None, share=True, mode='phantom')`
     * **send basic text type message to all friends**

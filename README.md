@@ -27,7 +27,13 @@
     
   
 ## 2. Usage
-`$ git clone https://github.com/goofcode/lion`
+``` 
+$ git clone https://github.com/goofcode/lion
+$ cd lion
+$ pip3 install -r requirements.txt
+```
+
+
 ```python
 from lion import message
 from lion import info

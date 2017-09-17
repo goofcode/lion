@@ -3,6 +3,7 @@ author: Mookeun Ji, goofcode@gmail.com
 """
 
 import json
+import os
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -10,10 +11,11 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 
-from exception import NoSuchDriverException
+from .exception import *
+
 
 DEV = False
-
+current_dir = os.path.dirname(os.path.abspath(__file__))
 
 def url_join(main_url, sub_url):
     """
@@ -30,14 +32,14 @@ def url_join(main_url, sub_url):
 
 def get_settings():
     if DEV:
-        with open('dev_setting.json', 'r') as settings_json:
+        with open(os.path.join(current_dir, 'dev_setting.json'), 'r') as settings_json:
             return json.load(settings_json)
     else:
-        with open('setting.json', 'r') as settings_json:
+        with open(os.path.join(current_dir, 'setting.json'), 'r') as settings_json:
             return json.load(settings_json)
 
 def get_locators():
-    with open('locator.json', 'r', encoding='utf-8') as locators_json:
+    with open(os.path.join(current_dir, 'locator.json'), 'r', encoding='utf-8') as locators_json:
         return json.load(locators_json)
 
 def get_settings_and_locators():
@@ -68,35 +70,33 @@ def get_driver(mode='phantom'):
         if DEV:
             driver.set_window_size(1920, 1080)
     else:
-        raise NoSuchDriverException('mode should be either "chrome" or "phantom"(headless)')
+        raise NoSuchDriverException()
 
     return driver
 
-def wait_until_xpath_load(driver, element_xpath, timeout=5):
+def wait_until_load(driver, by, locator, timeout=30):
     """
-    :param driver: selenium driver trying to load page
-    :param element_xpath: xpath of element waiting for
-    :param timeout: maximum time to wait. after this time elapsed, TimeoutException will be raised.
+    :param driver: selenium driver loading page
+    :param by: locating method 'id', 'xpath', 'class'
+    :param locator: proper locator according to param by
+    :param timeout: maximum time to wait. After this time elapsed, TimeoutException will be raised.
     :return: web element object waiting for
     """
-    return _get_element_after_loaded(driver, timeout, (By.XPATH, element_xpath))
+    if by is 'id':
+        return WebDriverWait(driver, timeout).until(ec.presence_of_element_located((By.ID, locator)))
+    elif by is 'xpath':
+        return WebDriverWait(driver, timeout).until(ec.presence_of_element_located((By.XPATH, locator)))
+    elif by is 'class':
+        return WebDriverWait(driver, timeout).until(ec.presence_of_element_located((By.CLASS_NAME, locator)))
+    else:
+        raise NoSuchLocateMethodException()
 
-def wait_until_id_load(driver, element_id, timeout=5):
-    """
-    :param driver: selenium driver trying to load page
-    :param element_id: id of element waiting for
-    :param timeout: maximum time to wait. after this time elapsed, TimeoutException will be raised.
-    :return: web element object waiting for
-    """
-    return _get_element_after_loaded(driver, timeout, (By.ID, element_id))
 
-def _get_element_after_loaded(driver, timeout, locator):
-    return WebDriverWait(driver, timeout).until(ec.presence_of_element_located(locator))
 
 def login_pf_center(driver):
     settings, locators = get_settings_and_locators()
     to_pf_center(driver)
-    wait_until_xpath_load(driver, locators['to_login_page_btn_xpath']).click()
+    wait_until_load(driver, 'xpath', locators['to_login_page_btn_xpath']).click()
     driver.find_element_by_id(locators['login_email_input_id']).send_keys(settings['admin_info']['email'])
     driver.find_element_by_id(locators['login_pw_input_id']).send_keys(settings['admin_info']['pw'])
     driver.find_element_by_id(locators['login_submit_btn_id']).click()

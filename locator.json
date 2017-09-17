@@ -16,6 +16,7 @@
   "link_input_id": "linkUpload",
   "no_share_radio_xpath": "//input[@id='fieldRadio0Forshareable']/../label[1]/span[1]",
   "next_btn_xpath": "//button[contains(text(),'다음')]",
+  "show_calendar_class": "lab_date",
   "submit_btn_xpath": "//button[contains(text(),'등록')]",
   "confirm_btn_xpath": "//button[contains(text(),'확인')]"
 }

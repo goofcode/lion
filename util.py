@@ -13,7 +13,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from .exception import *
 
-
 DEV = False
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -67,8 +66,7 @@ def get_driver(mode='phantom'):
             'Chrome/60.0.3112.113 Safari/537.36')
 
         driver = webdriver.PhantomJS(executable_path=get_settings()['phantom_driver_path'], desired_capabilities=dcap)
-        if DEV:
-            driver.set_window_size(1920, 1080)
+        driver.set_window_size(1920, 1080)
     else:
         raise NoSuchDriverException()
 
